@@ -1,0 +1,137 @@
+  .product-image {
+    display: none;
+  }
+  .product-image img.active {
+    display: block;
+    margin: 0 0 0.75rem 0;
+    max-height: 400px; /* Adjust the value according to your preference */
+    max-width: auto;
+  }
+  
+  .image-list {
+    padding-left: 0;
+  }
+
+
+  .image-list li {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    padding-left: 0;
+    margin: 0; /* Remove margins */
+  }
+
+  .invisible {
+    visibility: hidden;
+  }
+  
+  @media (min-width: 768px) {
+    .product-image img, .image-list img {
+        width: 100%;
+      }
+    
+      .product-image {
+        display: block;
+        img {
+          height: 52vh;
+          &.active {
+            display: block;
+            margin: 0 0 0.75rem 0;
+          }
+        }
+      }
+      
+      .image-list {
+        display: flex;
+        overflow: hidden;
+        li {
+          margin: 0 0.75rem 0 0;
+          flex-basis: 100%;
+          &:nth-child(3) {
+            margin: 0;
+          }
+        }
+        img {
+          height: 100px;
+          width: auto;
+          transition: opacity 0.3s ease;
+          cursor: pointer;
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+      }    
+  }
+
+  .quantity {
+    width: 150px;
+    height: 40px;
+    background-color: #edeefa;
+    padding: 15px;
+    display: inline-flex;
+    overflow: hidden;
+    align-items: center;
+    border-radius: 10px;
+  }
+  
+  .btnIncre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 1rem;
+    background: 0 0;
+    color: #000;
+    cursor: pointer;
+  }
+
+  #qtyInput {
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+    font-family: sans-serif;
+    text-align: center;
+    color: #000;
+    background: 0 0;
+    flex: 1;
+    font-weight: 700;
+  }
+  
+  #qtyInput:focus-visible {
+    outline: none;
+  }
+
+#item-Info {
+  margin-top: 100px;
+}
+
+@media (max-width: 767px) {
+  .product-gallery {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  .image-list {
+    display: none;
+  }
+
+  .product-image {
+    display: block;
+  }
+
+  #item-Info {
+    margin-top: 50px;
+  }
+}
+
+#line-break {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.carousel-suggestion {
+  margin-bottom: 100px;
+}

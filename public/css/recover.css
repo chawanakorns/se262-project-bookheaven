@@ -1,0 +1,190 @@
+  /* Full-width inputs */
+  input[type=text],
+  input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: rgb(214, 214, 214);
+    background-color: rgb(214, 214, 214);
+  }
+
+  /* Set a style for all buttons */
+  #submit {
+    background-color: #FFCA28;
+    padding: 12px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    width: 100%;
+    border-style: solid;
+    border-color: #FFCA28;
+    border-radius: 12px !important;
+  }
+
+  /* Add a hover effect for buttons */
+  #submit:hover {
+    opacity: 0.8;
+  }
+
+  /* Extra style for the cancel button (red) */
+  .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+  }
+
+  /* Center the avatar image inside this container */
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+  }
+
+  /* Avatar image */
+  img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+
+  /* Add padding to containers */
+  #container-recovery {
+    padding: 16px;
+    width: 650px;
+  }
+
+  .recover-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px;
+  }
+
+  .image {
+    padding: 50px;
+    width: 100%;
+  }
+
+  .nav-content {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .input-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* The "Forgot password" text */
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+      display: block;
+      float: none;
+    }
+
+    .cancelbtn {
+      width: 100%;
+    }
+  }
+
+  #secondNav {
+    background-color: #132C6B;
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+
+  #logo {
+    width: auto;
+    height: 60px;
+    margin-left: 20px;
+  }
+
+  .navbar-toggler-icon {
+    color: white;
+  }
+
+  .navbar-collapse.in {
+    max-height: 100%;
+  }
+
+  body nav:nth-child(1) {
+    padding: 0px 0px 0px 0px;
+  }
+  /* Recover style */
+  .forgot-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .have-account {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  .profile-icon {
+    display: none;
+  }
+  /* Recover completion block style */
+  .recover-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    height: 500px;
+    align-items: center;
+    background-color: rgb(238, 238, 238);
+  }
+
+  .login-button-phone {
+    display: block;
+  }
+
+  .login-button-phone {
+    display: none;
+  }
+
+  @media only screen and (max-width: 768px) {
+    /* Recover page Responsive*/
+    .recover-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .image {
+      display: none;
+    }
+
+    .input-form {
+      padding-top: 100px;
+    }
+
+    .profile-icon {
+      display: block;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    /*Recover completion page responsive style */
+    .login-button {
+      display: none;
+    }
+
+    .login-button-phone {
+      display: block;
+      margin: 20px;
+    }
+  }

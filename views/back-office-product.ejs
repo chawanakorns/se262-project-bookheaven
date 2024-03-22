@@ -1,0 +1,377 @@
+<%- include('partials/back-office-header', { pageTitle: 'Product Management Page' , activePage: 'product' }) %>
+
+  <body>
+    <div class="content">
+      <div class="label">
+        <h1>Inventory</h1>
+      </div>
+      <div class="inventory-menu">
+        <div class="inventory-submenu">
+          <form action="/back-office-product/add" method="POST">
+            <button class="edit" style="display: none; border: none; background-color: green; color: white;" id="add"
+              type="submit">
+              <i class="fa-solid fa-plus"></i>&nbsp;Add
+            </button>
+          </form>
+          <button class="edit" style="display: none; border: none; background-color: red; color: white;" id="delete"
+            onclick="deleteSelectedRows()">
+            <i class="fa-solid fa-minus"></i>&nbsp;Delete
+          </button>
+          <button class="edit" onclick="toggleEditButtons(this)">
+            <i class="fa-solid fa-pen-to-square"></i>
+            &nbsp;
+            <a>Edit</a>
+          </button>
+        </div>
+        <div id="restockModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Restock Items</h2>
+            <form id="restockForm" action="/order/restock" method="POST">
+              <label for="restockQuantity">Quantity:</label>
+              <input type="number" id="restockQuantity" name="restockQuantity" min="1" required>
+              <input type="hidden" id="productIdInput" name="productId" value="">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+        &nbsp;
+        <form class="search" action="/back-office-product" method="GET">
+          <input style="padding: 10px; margin-left: 10px;" class="search-box" name="search"
+            placeholder="Search product name" value="<%= typeof search !== 'undefined' ? search : '' %>">
+          <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"
+              style="color: black;"></i></button>
+        </form>
+        <div class="page-select-above">
+          <button class="edit" onclick="previousPage()"><i class="fa-solid fa-arrow-left"></i></button>
+          &nbsp;
+          <input class="page-number" type="number" min="1" value="<%= currentPage %>"
+            onchange="goToPage(this.value)"></input>
+          &nbsp;
+          <button class="edit" onclick="nextPage()"><i class="fa-solid fa-arrow-right"></i></button>
+          <div class="page-label">Page <%= currentPage %> out of <%= totalPages %>
+          </div>
+        </div>
+      </div>
+      <div id="restockModal" class="modal" style="padding: 20px">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Restock Items</h2>
+          <form id="restockForm" action="/back-office-product/restock" method="POST">
+            <label for="restockQuantity">Quantity:</label>
+            <input type="number" id="restockQuantity" name="restockQuantity" min="1" required>
+            <input type="hidden" id="productIdInput" name="productId" value="">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>      
+      <form id="editForm" action="/back-office-product/update" method="POST">
+        <table class="inventory-table">
+          <thead>
+            <tr class="head-row">
+              <td id="checkbox-header" style="display: none;"><input type="checkbox"
+                  onclick="toggleAllCheckboxes(this)"></input></td>
+              <td><b>Product ID</b></td>
+              <td><b>Product Name</b></td>
+              <td><b>Category ID</b></td>
+              <td><b>Product Image ID</b></td>
+              <td><b>Stock</b></td>
+              <td><b>Sales Count</b></td>
+              <td><b>Price</b></td>
+              <td><b>Promotion</b></td>
+              <td><b>Action</b></td>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (data.length===0) { %>
+              <tr>
+                <td colspan="11">No items available.</td>
+              </tr>
+              <% } else { %>
+                <% data.forEach(entry=> { %>
+                  <tr>
+                    <!-- Render data for each row -->
+                    <td class="checkbox-column" style="display: none; padding: 10px"><input type="checkbox"></input>
+                    </td>
+
+                    <td>
+                      <%= entry.product_id %><input type="hidden" name="product_id" value="<%= entry.product_id %>">
+                    </td>
+
+                    <td class="product-name-column">
+                      <span class="product-name-label" data-product-id="<%= entry.product_id %>">
+                        <%= entry.product_name %>
+                      </span>
+                      <input class="edit-input" type="text" name="product_name" value="<%= entry.product_name %>"
+                        style="display:none;" data-product-id="<%= entry.product_id %>">
+                    </td>
+
+                    <td class="category-id-column" style="padding: 10px">
+                      <span class="category-id-label" data-product-id="<%= entry.product_id %>">
+                        <%= entry.category_id %>
+                      </span>
+                      <input class="edit-input" type="text" name="category_id" value="<%= entry.category_id %>"
+                        style="display:none;" data-product-id="<%= entry.product_id %>">
+                    </td>
+
+                    <td>
+                        <%= entry.product_imageID %>
+                    </td>
+
+                    <td class="stock-column" style="padding: 10px">
+                      <span class="stock-label">
+                        <%= entry.stock %>
+                      </span>
+                      <input class="edit-input" type="text" name="stock" value="<%= entry.stock %>"
+                        style="display:none;" data-product-id="<%= entry.product_id %>">
+                    </td>
+
+                    <td>
+                      <%= entry.product_sales_count %>
+                    </td>
+                    <td class="price-column" style="padding: 10px">
+                      <span class="price-label">
+                        <%= entry.product_price %> ฿
+                      </span>
+                      <input class="edit-input" type="text" name="product_price" value="<%= entry.product_price %>"
+                        style="display:none;" data-product-id="<%= entry.product_id %>">
+                    </td>
+
+                    <td class="promotion-column" style="padding: 10px">
+                      <span class="promotion-label">
+                        <%= entry.product_price_promotion %> ฿
+                      </span>
+                      <input class="edit-input" type="text" name="product_price_promotion"
+                        value="<%= entry.product_price_promotion %>" style="display:none;"
+                        data-product-id="<%= entry.product_id %>">
+                    </td>
+
+                    <td>
+                      <button class="edit restock-btn" data-product-id="<%= entry.product_id %>"
+                        style="background-color: lightskyblue; border: none; color: white; margin: 5px;">Restock</button>
+                    </td>
+                  </tr>
+                  <% }) %>
+                  <% } %>
+          </tbody>
+        </table>
+      </form>
+
+      <div class="page-select">
+        <button class="edit" onclick="previousPage()"><i class="fa-solid fa-arrow-left"></i></button>
+        &nbsp;
+        <input class="page-number" type="number" min="1" value="<%= currentPage %>"
+          onchange="goToPage(this.value)"></input>
+        &nbsp;
+        <button class="edit" onclick="nextPage()"><i class="fa-solid fa-arrow-right"></i></button>
+        <div class="page-label">Page <%= currentPage %> out of <%= totalPages %>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      function toggleEditButtons(button) {
+        var addButton = document.getElementById('add');
+        var deleteButton = document.getElementById('delete');
+        var checkboxHeader = document.getElementById('checkbox-header');
+        var checkboxColumns = document.querySelectorAll('.checkbox-column');
+        var editInputs = document.querySelectorAll('.edit-input');
+        var productNameLabels = document.querySelectorAll('.product-name-label');
+        var categoryIDLabels = document.querySelectorAll('.category-id-label');
+        var stockLabels = document.querySelectorAll('.stock-label');
+        var priceLabels = document.querySelectorAll('.price-label');
+        var promotionLabels = document.querySelectorAll('.promotion-label');
+
+        if (addButton.style.display === 'none') {
+          addButton.style.display = 'inline-block';
+          deleteButton.style.display = 'inline-block';
+          button.innerHTML = '<i class="fa-solid fa-times"></i> Cancel';
+          button.style.border = 'none';
+          button.style.backgroundColor = 'orange';
+          button.style.color = 'white';
+          checkboxHeader.style.display = 'table-cell';
+          checkboxColumns.forEach(function (column) {
+            column.style.display = 'table-cell';
+          });
+          editInputs.forEach(function (input) {
+            input.style.display = 'inline-block';
+          });
+          productNameLabels.forEach(function (label) {
+            label.style.display = 'none';
+          });
+          categoryIDLabels.forEach(function (label) {
+            label.style.display = 'none';
+          });
+          stockLabels.forEach(function (label) {
+            label.style.display = 'none';
+          });
+          priceLabels.forEach(function (label) {
+            label.style.display = 'none';
+          });
+          promotionLabels.forEach(function (label) {
+            label.style.display = 'none';
+          });
+        } else {
+          addButton.style.display = 'none';
+          deleteButton.style.display = 'none';
+          button.style.border = '';
+          button.style.backgroundColor = '';
+          button.style.color = '';
+          button.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Edit';
+          checkboxHeader.style.display = 'none';
+          checkboxColumns.forEach(function (column) {
+            column.style.display = 'none';
+          });
+          editInputs.forEach(function (input) {
+            input.style.display = 'none';
+          });
+          productNameLabels.forEach(function (label) {
+            label.style.display = 'inline-block';
+          });
+          categoryIDLabels.forEach(function (label) {
+            label.style.display = 'inline-block';
+          });
+          stockLabels.forEach(function (label) {
+            label.style.display = 'inline-block';
+          });
+          priceLabels.forEach(function (label) {
+            label.style.display = 'inline-block';
+          });
+          promotionLabels.forEach(function (label) {
+            label.style.display = 'inline-block';
+          });
+
+          // Update values for the edited row
+          editInputs.forEach(function (input) {
+            var productId = input.getAttribute('data-product-id');
+            var label;
+            switch(input.name) {
+              case 'product_name':
+                label = document.querySelector('.product-name-label[data-product-id="' + productId + '"]');
+                break;
+              case 'category_id':
+                label = document.querySelector('.category-id-label[data-product-id="' + productId + '"]');
+                break;
+              case 'stock':
+                label = document.querySelector('.stock-label[data-product-id="' + productId + '"]');
+                break;
+              case 'product_price':
+                label = document.querySelector('.price-label[data-product-id="' + productId + '"]');
+                break;
+              case 'product_price_promotion':
+                label = document.querySelector('.promotion-label[data-product-id="' + productId + '"]');
+                break;
+              default:
+                break;
+            }
+            if (label) {
+              label.innerText = input.value;
+            }
+          });
+
+          // Hide input fields
+          editInputs.forEach(function (input) {
+            input.style.display = 'none';
+          });
+
+          // Update values and submit form to update database
+          var editForm = document.getElementById('editForm');
+          editForm.submit();
+        }
+      }
+
+
+      function toggleAllCheckboxes(checkbox) {
+        var checkboxes = document.querySelectorAll('.checkbox-column input');
+        checkboxes.forEach(function (cb) {
+          cb.checked = checkbox.checked;
+        });
+      }
+
+      function nextPage() {
+        var currentPage = parseInt('<%= currentPage %>');
+        var totalPages = parseInt('<%= totalPages %>');
+        if (currentPage < totalPages) {
+          window.location.href = '/back-office-product?page=' + (currentPage + 1);
+        }
+      }
+
+      function previousPage() {
+        var currentPage = parseInt('<%= currentPage %>');
+        if (currentPage > 1) {
+          window.location.href = '/back-office-product?page=' + (currentPage - 1);
+        }
+      }
+
+      function goToPage(pageNumber) {
+        var totalPages = parseInt('<%= totalPages %>');
+        // Parse the input to ensure it's a valid number
+        pageNumber = parseInt(pageNumber);
+
+        // Check if the input is a valid number and within range
+        if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= totalPages) {
+          window.location.href = '/back-office-product?page=' + pageNumber;
+        } else {
+          // Provide feedback to the user if the input is invalid
+          alert('Please enter a valid page number between 1 and ' + totalPages);
+        }
+      }
+
+      function deleteSelectedRows() {
+        const selectedCheckboxes = document.querySelectorAll('.checkbox-column input:checked');
+        const selectedProducts = Array.from(selectedCheckboxes).map(cb => cb.parentElement.nextElementSibling.innerText);
+
+        if (selectedProducts.length === 0) {
+          alert('Please select at least one row to delete.');
+          return;
+        }
+
+        const deleteForm = document.createElement('form');
+        deleteForm.setAttribute('action', '/back-office-product/delete');
+        deleteForm.setAttribute('method', 'POST');
+        deleteForm.style.display = 'none'; // Hide the form
+
+        // Create and append hidden inputs for each selected product ID
+        selectedProducts.forEach(productId => {
+          const deleteInput = document.createElement('input');
+          deleteInput.setAttribute('type', 'hidden');
+          deleteInput.setAttribute('name', 'selectedProducts');
+          deleteInput.setAttribute('value', productId);
+          deleteForm.appendChild(deleteInput);
+        });
+
+        document.body.appendChild(deleteForm);
+
+        // Submit the form
+        deleteForm.submit();
+      }
+    </script>
+    <script>
+      $(document).ready(function() {
+        $('.restock-btn').click(function() {
+          var productId = $(this).data('product-id');
+          var restockQuantity = prompt('Enter restock quantity for product ID ' + productId + ':');
+          
+          // Check if the user entered a valid quantity
+          if (restockQuantity !== null && !isNaN(restockQuantity) && restockQuantity > 0) {
+            // Send AJAX request to your server
+            $.ajax({
+              type: 'POST',
+              url: '/back-office-product/restock',
+              data: { productId: productId, restockQuantity: restockQuantity }, // Send as object
+              success: function(response) {
+                // Handle success response
+                alert('Restock request sent successfully!');
+              },
+              error: function(xhr, status, error) {
+                // Handle error
+                alert('Error: ' + error);
+              }
+            });
+          } else {
+            alert('Invalid restock quantity. Please enter a valid number greater than 0.');
+          }
+        });
+      });
+    </script>
+  </body>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/recover.css" />
+    <script src="https://kit.fontawesome.com/285cca5c8c.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+  </head>
+
+  <%- include('partials/navbar'); %>
+
+
+  <div class="container-fluid">
+    <div class="recover-content">
+      <div class="image">
+        <img src="./assets/library.png" alt="library" width="600px" height="800px" />
+      </div>
+      <div class="input-form">
+        <form>
+          <img src="./assets/logo-blue.png" alt="logo" width="340px" height="61px" />
+          <div id="container-recovery" class="container">
+            <div style="margin-top: 16px; margin-bottom: 16px;">
+              <i class="fa-solid fa-lock fa-2xl" style="color: #000000"></i>
+              <label style="font-size: 24px"><b>Password Recovery</b></label>
+            </div>
+            <label for="email"><b>Email</b></label>
+            <input
+              type="text"
+              id="EMAIL"
+              placeholder="Enter your e-mail"
+              name="EMAIL"
+              required
+            />
+            <a href="recover-complete.html"><button id="submit">Sent</button></a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <%- include('partials/footer'); %>
+
+
+</body>
+</html>

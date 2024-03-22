@@ -1,0 +1,201 @@
+.main {
+    margin: 5% 10% 5% 10%;
+    max-width: calc(100% - 20%);
+}
+
+p {
+    margin-bottom: 5px;
+}
+
+.price-detail {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.sum {
+    font-weight: bold;
+}
+
+.title {
+    margin-left: 20px;
+}
+
+.box-left {
+    padding: 20px 10px 20px 40px;
+}
+
+.box-right {
+    padding: 20px 20px 20px 20px;
+    margin-left: 5%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+}
+
+.line {
+    padding-bottom: 20px;
+    border-bottom-style: solid;
+    border-width: 1px;
+}
+
+.book-item {
+    margin-top: 20px;
+}
+
+.path-small {
+    margin-top: 15px;
+}
+
+.path-item-small {
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.input-box {
+    border-radius: 5px;
+    border-style: none;
+    background-color: #D9D9D9;
+    height: 35px;
+    width: 100%;
+}
+
+.custom-btn {
+    background-color: #FFCA28;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.checkout-btn {
+    width: 100%;
+}
+
+.align-self-end {
+    align-self: flex-end;
+    /* Aligns the element to the end */
+}
+
+.custom-table {
+    border-collapse: separate;
+    /* Ensures that borders and padding are applied separately */
+    border-spacing: 10px;
+    /* Adjust this value to set the desired spacing between columns */
+    width: 100%;
+}
+
+.custom-table td {
+    padding: 0px 10px 10px 10px;
+}
+
+.custom-table tr {
+    padding: 10px;
+    /* Adjust this value to set the desired padding within cells */
+    border-bottom-style: solid;
+    border-width: 5px;
+}
+
+.item-title{
+    width: 100%;
+}
+
+.quantuty-btn {
+    background-color: #D9D9D9;
+}
+
+.quantuty-btn .form-control {
+    width: 50px; /* Adjust the width as needed */
+  }
+
+.custom-input-group .btn {
+    border-style: none; 
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+    .large {
+        display: none;
+    }
+
+    .box-right {
+        margin-top: 10px;
+        margin-left: 0px;
+    }
+
+    .box-left {
+        padding-left: 0px;
+    }
+
+    .search-title {
+        margin-bottom: 10px;
+    }
+
+    .title {
+        margin-left: 0px;
+    }
+    .book-item {
+        margin-top: 10px;
+    }
+    .custom-table{
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: #F5F5F5;
+    }
+    .line {
+        padding-bottom: 0px;
+        border-bottom-style: none;
+        border-width: 0px;
+    }
+    #apply-btn {
+        width: 100px;
+    }
+    .item-frame{
+        margin-bottom: 20px;
+    }
+    
+}
+
+@media only screen and (min-width: 768px) {
+    .small {
+        display: none;
+    }
+}
+
+.quantity {
+    width: 150px;
+    height: 40px;
+    background-color: #edeefa;
+    padding: 15px;
+    display: inline-flex;
+    overflow: hidden;
+    align-items: center;
+    border-radius: 10px;
+  }
+  
+  .btnIncre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 1rem;
+    background: 0 0;
+    color: #000;
+    cursor: pointer;
+  }
+
+  #qtyInput {
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+    font-family: sans-serif;
+    text-align: center;
+    color: #000;
+    background: 0 0;
+    flex: 1;
+    font-weight: 700;
+  }
+  
+  #qtyInput:focus-visible {
+    outline: none;
+  }

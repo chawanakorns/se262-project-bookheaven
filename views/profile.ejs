@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/account-main.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <script src="https://kit.fontawesome.com/285cca5c8c.js" crossorigin="anonymous"></script>
+  <title>Document</title>
+</head>
+
+<%- include('partials/navbar'); %>
+
+  <div class="container-fluid row main">
+    <div>
+      <nav aria-label="breadcrumb" class="path-PC">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/account">Account</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        </ol>
+      </nav>
+
+      <a href="/account" class="path-mobile">
+        <div class="d-flex profile-item">
+            <div class="d-flex justify-content-center align-items-center">
+                <i class="fa-solid fa-arrow-left fa-1sm"></i>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <h6 class="path-mobile-item bold">Account</h6>
+            </div>
+        </div>
+      </a>
+    </div>
+    <!-- main -->
+    <!-- Large -->
+    <div class="large">
+      <div class="Title-Head">
+        <h1>Personal information</h1>
+      </div>
+      <!--Profile-->
+      <div class="profile-box d-flex">
+        <div class="col-9 d-flex">
+          <div class="p-2 logo-box profile-logo">
+            <i class="fa-regular fa-user fa-8x"></i>
+          </div>
+          <div class="p-2">
+            <div class="row">
+                <div class="col-lg-5">
+                    <h2 class="profile-Name"><%- profile.user_first_name %></h2>
+                </div>
+                <div class="col-lg-5">
+                    <h2 class="profile-Name"><%- profile.user_last_name %></h2>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-2 d-flex justify-content-end align-items-end edit-box">
+          <a href="/profile-edit">
+            <div class="p-2 logo-box">
+              <h4 class="edit-item">Edit</h4>
+              <i class="fa-regular fa-pen-to-square fa-1sm"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!--About-->
+      <h3 class="Title">About</h3>
+      <div class="row">
+        <div class="col-4">
+          <div class="d-flex">
+            <h6 class="profile-item">User Id:</h6>
+            <h6><%- profile.user_id %></h6>
+          </div>
+          <div class="d-flex">
+            <h6 class="profile-item">Email:</h6>
+            <h6><%- profile.user_email %></h6>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex">
+            <h6 class="profile-item">Username:</h6>
+            <h6><%- profile.user_name %></h6>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="d-flex">
+            <h6 class="profile-item">Gender:</h6>
+            <h6><%- profile.user_gender %></h6>
+          </div>
+          <div class="d-flex">
+            <h6 class="profile-item">Date of birth:</h6>
+            <h6>February, 01 1999</h6>
+          </div>
+          <div class="d-flex">
+            <h6 class="profile-item">Member since:</h6>
+            <h6><%- profile.user_member_date %></h6>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex">
+            <h6 class="profile-item">Phone:</h6>
+            <h6><%- profile.user_phone %></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Small-->
+    <div class="small">
+      <h1 class=" text-center small-Title">Personal Information</h1>
+      <div class="d-flex justify-content-center align-items-center Top-small">
+        <div>
+          <i class="fa-regular fa-user fa-5x"></i>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="profile-box-small">
+          <div class="row">
+            <div class="d-flex justify-content-end align-items-end">
+              <a href="/profile-edit">
+                <div class="d-flex profile-item">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <h6 class="edit-small-down bold">edit</h6>
+                  </div>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <i class="fa-regular fa-pen-to-square fa-1sm"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="d-flex profile-item">
+              <div class="row">
+                <div class="d-flex">
+                  <h6 class="profile-item">User Id:</h6>
+                  <h6><%- profile.user_id %></h6>
+                </div>
+                <div class="d-flex">
+                  <h6 class="profile-item">Username:</h6>
+                  <h6><%- profile.user_name %></h6>
+                </div>
+                <div class="d-flex">
+                  <h6 class="profile-item">Email:</h6>
+                  <h6><%- profile.user_email %></h6>
+                </div>
+                <div class="d-flex">
+                  <h6 class="profile-item">Gender:</h6>
+                  <h6><%- profile.user_gender %></h6>
+                </div>
+                <div class="d-flex">
+                  <h6 class="profile-item">Phone:</h6>
+                  <h6><%- profile.user_phone %></h6>
+                </div>
+                <div class="d-flex">
+                  <h6 class="profile-item">Date of birth:</h6>
+                  <h6><%- profile.user_birth_date %></h6>
+                </div>
+                <div class="d-flex">
+                  <h6 class="profile-item">Member since:</h6>
+                  <h6><%- profile.user_phone %></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<%- include('partials/footer'); %>
+</body>
+
+</html>

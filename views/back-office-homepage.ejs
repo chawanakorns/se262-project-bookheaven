@@ -1,0 +1,82 @@
+<%- include('partials/back-office-header', { pageTitle: 'Back Office Homepage', activePage: 'home' }) %>
+
+<body>
+  <div class="content">
+    <div class="label">
+      <h1>Welcome, User</h1>
+    </div>
+    <div class="top">
+      <div class="flex-container">
+        <div class="item total-sales" style="padding: 15px;">
+          <div>Total Sales</div>
+          <div>
+            <h1><%= totalSales %></h1>
+          </div>
+        </div>
+        <div class="item total-stocks" style="padding: 15px;">
+          <div>Total Stocks</div>
+          <div>
+            <h1><%= totalStocks %></h1>
+          </div>
+        </div>
+        <div class="item employees" style="padding: 15px;">
+          <div>Employees</div>
+          <div>
+            <div><h1><%= employeeCount %></h1></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="flex-container">
+        <div class="item">
+          <div>
+            <canvas id="productSalesChart" style="height: 325px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const productSalesData = JSON.parse('<%- productSalesData %>');
+
+      const ctx = document.getElementById("productSalesChart");
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: productSalesData.labels,
+          datasets: [{
+            label: "Product Sales Count",
+            data: productSalesData.data,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.1)',
+              'rgba(54, 162, 235, 0.1)',
+              'rgba(255, 206, 86, 0.1)',
+              'rgba(75, 192, 192, 0.1)',
+              'rgba(153, 102, 255, 0.1)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>

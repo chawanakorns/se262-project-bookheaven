@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/register.css" />
+    <script src="https://kit.fontawesome.com/285cca5c8c.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+  </head>
+
+  <%- include('partials/navbar'); %>
+
+
+  <div class="container-fluid">
+    <div class="register-content">
+      <div class="image">
+        <img src="./assets/library.png" alt="library" width="600px" height="800px" />
+      </div>
+      <div class="input-form">
+        <img src="./assets/logo-blue.png" alt="logo" width="340px" height="61px" />
+        <form id="register-form" action="/register" method="post">
+          <div class="container">
+            <div style="margin-top: 16px; margin-bottom: 16px">
+              <i class="fa-solid fa-user fa-2xl" style="color: #000000"></i>
+              <label style="font-size: 24px"><b>Create Account</b></label>
+            </div>
+  
+            <label for="email"><b>Email</b></label>
+            <input
+              type="text"
+              id="EMAIL"
+              placeholder="Enter E-mail"
+              name="EMAIL"
+              required
+            />
+  
+            <label for="uname"><b>Username</b></label>
+            <input
+              type="text"
+              id="USER_NAME"
+              placeholder="Enter Username"
+              name="USER_NAME"
+              required
+            />
+            <label for="psw"><b>Password</b></label>
+            <input
+              type="password"
+              id="PASSWORD"
+              placeholder="Enter Password"
+              name="PASSWORD"
+              required
+            />
+            
+            <label for="psw-confirm"><b>Confirm Password</b></label>
+            <input
+              type="password"
+              id="PASSWORD_confirm"
+              placeholder="Confirm your password"
+              name="PASSWORD_confirm"
+              required
+            />
+
+            <div class="error-message" id="error-message" style="display: none; color: red;">Password is not matched.</div>
+            <p id="pwd_not_match"></p>
+            <label
+              ><input type="checkbox" /> I would like to receive the
+              newsletter and promotions</label
+            >
+            <br />
+            <label><input type="checkbox" /> Term of service</label>
+  
+            <button id="submit" type="submit">Register</button>
+          </div>
+        </form>
+        <div class="have-account">Already have an account? <a href="/login.html">Sign in here!</a></div>
+      </div>
+    </div>
+  </div>
+  
+
+  <%- include('partials/footer'); %>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const errorMessage = document.getElementById('error-message');
+
+    // Check if the error message is displayed
+    const queryParams = new URLSearchParams(window.location.search);
+    const isError = queryParams.has('error');
+
+    if (isError) {
+      // Show the error message
+      errorMessage.style.display = 'block';
+    } else {
+      // Hide the error message
+      errorMessage.style.display = 'none';
+    }
+  });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<%- include('partials/back-office-header', { pageTitle: 'Order Management Page' , activePage: 'order' }) %>
+
+<body class="order">
+  <nav class="mobile-navbar collapsed">
+      <div class="sort-menu">
+        <div class="top">
+          <div class="request-type-label">
+            <label>Request Types</label>
+          </div>
+          <div class="flex-container">
+            <form class="request-type-form" action="/back-office-order" method="GET">
+              <select name="request_type" onchange="this.form.submit()">
+                <option value="all" <% if (!requestType || requestType === 'all') { %>selected<% } %>>All Request Types</option>
+                <option value="Restock Request" <% if (requestType === 'Restock Request') { %>selected<% } %>>Restock Request</option>
+                <option value="Customer Request" <% if (requestType === 'Customer Request') { %>selected<% } %>>Customer Request</option>
+              </select>
+            </form>
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="flex-container">
+            <form class="search" action="/back-office-order" method="GET">
+              <input style="padding: 10px;" class="search-box" name="search" placeholder="Search order ID or product ID" value="<%= typeof search !== 'undefined' ? search : '' %>">
+              <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass" style="color: black;"></i></button>
+            </form>
+          </div>
+          <button class="toggle-sidebar" onclick="toggleMobileNavbar(event)">
+            <i class="fa-solid fa-gear" style="color: black;"></i>
+          </button>
+        </div>
+      </div>
+  </nav>
+  <div class="content">
+    <div class="label">
+      <h1>Orders</h1>
+    </div>
+    <div class="sort-menu">
+      <div class="top">
+        <div class="request-type-label">
+          <label>Request Types</label>
+        </div>
+        <div class="flex-container">
+          <form class="request-type-form" action="/back-office-order" method="GET">
+            <select name="request_type" onchange="this.form.submit()">
+              <option value="all" <% if (!requestType || requestType === 'all') { %>selected<% } %>>All Request Types</option>
+              <option value="Restock Request" <% if (requestType === 'Restock Request') { %>selected<% } %>>Restock Request</option>
+              <option value="Customer Request" <% if (requestType === 'Customer Request') { %>selected<% } %>>Customer Request</option>
+            </select>
+          </form>
+        </div>
+        <div class="bottom">
+          <div class="flex-container">
+            <form class="search" action="/back-office-order" method="GET">
+              <input style="padding: 10px;" class="search-box" name="search" placeholder="Search order ID or product ID" value="<%= typeof search !== 'undefined' ? search : '' %>">
+              <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass" style="color: black;"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-select">
+      <button class="edit" onclick="previousPage()"><i class="fa-solid fa-arrow-left"></i></button>
+      &nbsp;
+      <input class="page-number" type="number" min="1" value="<%= currentPage %>" onchange="goToPage(this.value)"></input>
+      &nbsp;
+      <button class="edit" onclick="nextPage()"><i class="fa-solid fa-arrow-right"></i></button>
+      <div class="page-label">Page <%= currentPage %> out of <%= totalPages %></div>
+    </div>
+    <table class="order-table" style="margin-bottom: 100px;">
+      <thead>
+        <tr class="head-row">
+          <td><b>Order ID</b></td>
+          <td><b>Request Date</b></td>
+          <td><b>Request From</b></td>
+          <td><b>Request Type</b></td>
+          <td><b>Product ID</b></td>
+          <td><b>Number of Items</b></td>
+          <td><b>Total Price</b></td>
+          <td><b>Action</b></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (data.length === 0) { %>
+          <tr>
+            <td colspan="9">Don't have order yet.</td>
+          </tr>
+        <% } else { %>
+          <% data.forEach(entry => { %>
+            <tr>
+              <td><%= entry.order_id %></td>
+              <td><%= entry.request_date %></td>
+              <td><%= entry.request_from %></td>
+              <td><%= entry.request_type %></td>
+              <td><%= entry.product_id %></td>
+              <td><%= entry.number_of_items %></td>
+              <td><%= entry.total_price %> ฿</td>
+              <td>
+                <div class="action-button" style="display: flex; flex-direction: row;">
+                  <form action="/back-office-order/approve" method="POST">
+                    <input type="hidden" name="product_id" value="<%= entry.product_id %>">
+                    <input type="hidden" name="order_id" value="<%= entry.order_id %>">
+                    <button type="submit" class="edit" style="background-color: green; border: none; color: white; margin: 5px;">Approve Order</button>
+                  </form>
+                  <form action="/back-office-order/reject" method="POST">
+                    <input type="hidden" name="product_id" value="<%= entry.product_id %>">
+                    <input type="hidden" name="order_id" value="<%= entry.order_id %>">
+                    <button class="edit" style="background-color: red; border: none; color: white; margin: 5px;">Reject Order</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    <script>
+      function toggleSidebar() {
+        document.querySelector('.sidebar').classList.toggle('collapsed');
+      }
+    
+      function toggleMobileNavbar(event) {
+        event.preventDefault();
+        const mobileNavbar = document.querySelector('.mobile-navbar');
+        mobileNavbar.classList.toggle('collapsed');
+      }
+    
+      function updateFormAction() {
+        const search = document.querySelector('.search-box').value;
+    
+        const formAction = `/order?search=${search}`;
+        document.getElementById('orderForm').setAttribute('action', formAction);
+    
+        document.getElementById('orderForm').submit();
+      }
+    
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.search-box').addEventListener('input', updateFormAction);
+      });
+    </script>
+</body>

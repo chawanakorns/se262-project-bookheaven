@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/account-main.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="https://kit.fontawesome.com/285cca5c8c.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<%- include('partials/navbar'); %>
+
+    <div class="container-fluid row main">
+        <div>
+            <nav aria-label="breadcrumb" class="path-PC">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/account">Account</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Address</li>
+                </ol>
+            </nav>
+            <a href="account-main.html" class="path-mobile">
+                <div class="d-flex profile-item">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="fa-solid fa-arrow-left fa-1sm"></i>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h6 class="path-mobile-item bold">Account</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- main -->
+        <div class="Title-Head">
+            <h1>Login & Security</h1>
+        </div>
+        <!--Profile-->
+        <div class="d-flex flex-wrap justify-content-center align-items-center main-Login-box">
+            <form action="/security-username" method="post">
+                <div class="login-box row" id="username-box">
+                    <div class="col-lg-8 col-sm-8">
+                        <h5>Username</h5>
+                        <p><%- data[0].user_name %></p>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 d-flex justify-content-end">
+                        <a href="#" class="edit-link login-edit " id="usernameEditLink" onclick="expandLoginBox()">
+                            <h4>Edit</h4>
+                        </a>
+                    </div>
+                    <div class="col-lg-12 edit-input-container">
+                        <div id="inputContainer" style="display: none;">
+                            <div>
+                                <h6>New Username</h6>
+                                <input type="text" class="form-control" id="curpasswordInput"
+                                    placeholder="Enter Username" name="new-username" >
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary custom-btn edit-login-saveButton" type="submit" id="saveUsername">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form action="/security-password" method="post">
+                <div class="login-box row" id="password-box">
+                    <div class="col-lg-8 col-sm-8">
+                        <h5>Password</h5>
+                        <p>********</p>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 d-flex justify-content-end">
+                        <a href="#" class="edit-link login-edit " id="usernameEditLink" onclick="expandLoginPasswordBox()">
+                            <h4>Edit</h4>
+                        </a>
+                    </div>
+                    <div class="col-lg-12 edit-input-container">
+                        <div id="inputContainer2" style="display: none;">
+                            <div>
+                                <h6>Current Password</h6>
+                                <input type="password" class="form-control" id="curpasswordInput"
+                                    placeholder="Enter Current Password" name="current-password">
+                            </div>
+                            <div class="login-edit-input">
+                                <h6>New Password</h6>
+                                <input type="password" class="form-control" id="newpasswordInput"
+                                    placeholder="Enter New Password" name="new-password">
+                                    <small id="passwordHelpInline" class="text-muted">
+                                        Must be 8-20 characters long.
+                                      </small>
+                            </div>
+                            <div class="login-edit-input">
+                                <h6>Confirm Password</h6>
+                                <input type="password" class="form-control" id="newconpasswordInput"
+                                    placeholder="Enter New Password" name="confirm-password">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary custom-btn edit-login-saveButton" type="submit" id="savePassword">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+
+    <%- include('partials/footer'); %>
+
+    <script>
+        function expandLoginBox() {
+        var loginBox = document.getElementById('username-box');
+        var loginBoxPassword = document.getElementById('password-box');
+        var inputContainer = document.getElementById('inputContainer');
+        var inputContainerPassword = document.getElementById('inputContainer2');
+
+        // Check if input container is already visible
+        if (inputContainer.style.display === 'block') {
+                return; // Do nothing if already expanded
+            }
+
+        // Check if username box is currently expanded
+        if (loginBoxPassword.style.height === '390px') {
+                loginBoxPassword.style.height = '80px';
+                inputContainerPassword.style.display = 'none';
+            
+        }
+
+        // Toggle the display of the inputContainer
+        if (inputContainer.style.display === 'none' || inputContainer.style.display === '') {
+            inputContainer.style.display = 'block';
+            loginBox.style.height = '215px';
+            loginBox.style.transition = 'height 0.5s, opacity 0.3s';
+            loginBox.style.overflow = 'hidden';
+            loginBox.style.opacity = '1';
+            // Focus on the input field
+            document.getElementById('usernameInput').focus();
+        } else {
+            inputContainer.style.display = 'none';
+        }
+        }
+
+        function expandLoginPasswordBox() {
+        var loginBoxUsername = document.getElementById('username-box');
+        var loginBox = document.getElementById('password-box');
+        var inputContainer = document.getElementById('inputContainer2');
+        var inputContainerUsername = document.getElementById('inputContainer');
+
+        // Check if input container is already visible
+        if (inputContainer.style.display === 'block') {
+                return; // Do nothing if already expanded
+            }
+
+        // Check if username box is currently expanded
+        if (loginBoxUsername.style.height === '215px') {
+                loginBoxUsername.style.height = '80px';
+                inputContainerUsername.style.display = 'none';
+                
+        }
+
+        // Toggle the display of the inputContainer
+        if (inputContainer.style.display === 'none' || inputContainer.style.display === '') {
+            inputContainer.style.display = 'block';
+            loginBox.style.height = '390px';
+            loginBox.style.transition = 'height 0.5s, opacity 0.3s';
+            loginBox.style.overflow = 'hidden';
+            loginBox.style.opacity = '1';
+            // Focus on the input field
+            document.getElementById('usernameInput').focus();
+        } else {
+            inputContainer.style.display = 'none';
+        }
+        }
+
+        document.getElementById('saveUsername').addEventListener('click', function() {
+        var inputContainer = document.getElementById('inputContainer');
+        var loginBoxUsername = document.getElementById('username-box');
+        if (inputContainer.style.display === 'block') {
+            inputContainer.style.display = 'none';
+            loginBoxUsername.style.height = '80px';
+        }
+        // Add code here to save username changes
+        });
+
+        document.getElementById('savePassword').addEventListener('click', function() {
+        var inputContainer = document.getElementById('inputContainer2');
+        var loginBoxPassword = document.getElementById('password-box');
+        if (inputContainer.style.display === 'block') {
+            inputContainer.style.display = 'none';
+            loginBoxPassword.style.height = '80px';
+        }
+        // Add code here to save password changes
+        });
+
+    </script>
+
+</body>
+
+</html>

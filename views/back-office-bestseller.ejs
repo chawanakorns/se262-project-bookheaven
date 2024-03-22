@@ -1,0 +1,106 @@
+<%- include('partials/back-office-header', { pageTitle: 'Bestseller', activePage: 'bestseller' }) %>
+<body class="bestseller">
+  <div class="content">
+    <div class="label">
+      <h1>Bestsellers</h1>
+    </div>
+    <div class="selection-menu-above">
+      <select id="select-menu-above" name="history" onchange="navigateAbove()">
+        <option value="back-office-salehistory">Sale History</option>
+        <option value="back-office-bestseller">Bestsellers</option>
+      </select>
+    </div>
+    <div class="page-select" style="display: flex; justify-content: left;">
+      <div class="page-select">
+        <div class="selection-menu" style="justify-content: center; align-items: center;">
+          <select id="select-menu" name="history" onchange="navigate()" style="width: 300px; height: 40px;">
+            <option value="back-office-salehistory">Sale History</option>
+            <option value="back-office-bestseller">Bestsellers</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <table class="bestseller-table" style="margin-bottom: 100px;">
+      <thead>
+        <tr class="head-row">
+          <td><b>Rank</b></td>
+          <td><b>Product Image</b></td>
+          <td><b>Product ID</b></td>
+          <td><b>Product Name</b></td>
+          <td><b>Sales Count</b></td>
+          <td><b>Total Income</b></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach((entry, index) => { %>
+          <tr>
+            <!-- Render data for each row -->
+            <td><%= index + 1 %></td>
+            <td><img src="<%= entry.Image_Path %>" alt="Product Image" style="width: 140px; height: 200px; padding: 20px;"></td>
+            <td><%= entry.product_id %></td>
+            <td><%= entry.product_name %></td>
+            <td><%= entry.product_sales_count %> items</td>
+            <td><%= entry.product_sales_count * entry.product_price %> ฿</td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <script>
+      function toggleSidebar() {
+        document.querySelector('.sidebar').classList.toggle('collapsed');
+      }
+
+      function navigate() {
+        var selectElement = document.getElementById("select-menu");
+        var selectedValue = selectElement.value;
+
+        // Perform the redirection based on the selected option
+        if (selectedValue === "back-office-salehistory") {
+          window.location.href = "back-office-salehistory";
+        } else if (selectedValue === "back-office-bestseller") {
+          window.location.href = "back-office-bestseller";
+        }
+      }
+
+      function setDefaultSelectedOption() {
+        var currentUrl = window.location.href;
+        var selectElement = document.getElementById("select-menu");
+
+        if (currentUrl.includes("back-office-bestseller")) {
+          selectElement.value = "back-office-bestseller";
+        } else {
+          selectElement.value = "back-office-salehistory";
+        }
+      }
+
+      function navigateAbove() {
+        var selectElement = document.getElementById("select-menu-above");
+        var selectedValue = selectElement.value;
+
+        // Perform the redirection based on the selected option
+        if (selectedValue === "back-office-salehistory") {
+          window.location.href = "back-office-salehistory";
+        } else if (selectedValue === "back-office-bestseller") {
+          window.location.href = "back-office-bestseller";
+        }
+      }
+
+      function setDefaultSelectedOptionAbove() {
+        var currentUrl = window.location.href;
+        var selectElement = document.getElementById("select-menu-above");
+
+        if (currentUrl.includes("back-office-bestseller")) {
+          selectElement.value = "back-office-bestseller";
+        } else {
+          selectElement.value = "back-office-salehistory";
+        }
+      }
+
+      // Call the function when the page loads
+      window.onload = function() {
+        setDefaultSelectedOption();
+        setDefaultSelectedOptionAbove();
+      };
+    </script>
+  </div>
+</body>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="https://kit.fontawesome.com/285cca5c8c.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<%- include('partials/navbar'); %>
+
+
+    <div class="container-fluid row main">
+        <div class="small">
+            <form class="d-flex" id="search-small" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                    id="searchBar" />
+                <input type="submit" style="position: absolute; left: -9999px" />
+                <button type="button" class="btn filter-btn" id="filter"><i class="fa-solid fa-filter"></i></button>
+            </form>
+        </div>
+        <div>
+            <nav aria-label="breadcrumb" class="large">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Search</li>
+                </ol>
+            </nav>
+
+            <div class="path-small">
+                <a href="/" class="small">
+                    <div class="d-flex path-item-small">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="fa-solid fa-arrow-left fa-1sm"></i>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <h6 class="path-mobile-item bold">Home</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- main -->
+        <!-- Function -->
+        <div class="row">
+            <div class="col-lg-3 large">
+                <div class="box">
+                    <h4>Category</h4>
+                    <div class="">
+                        <% categories.forEach(category => { %>
+                            <div class="form-check">
+                                <input class="form-check-input category-checkbox" type="checkbox" value="<%= category.category_id %>" id="categoryCheckbox<%= category.category_id %>">
+                                <label class="form-check-label" for="categoryCheckbox<%= category.category_id %>">
+                                    <%= category.category_name %>
+                                </label>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="box-right">
+                    <% if (searchQuery) { %>
+                        <div class="d-flex search-title">
+                            <h6>Search results:</h6>
+                            &nbsp;
+                            <h6><%= searchQuery %></h6>
+                        </div>
+                    <% } %>
+                    <div class="container">
+                        <!-- First row -->
+                        <div class="row book-row d-flex justify-content-left flex-wrap">
+                            <% products.forEach(function(product) { %>
+                                <div class="col-lg-3 col-sm-5 position-relative book-row">
+                                    <a href="/product?bookID=<%= encodeURIComponent(product.product_id) %>" class="text-dark" style="text-decoration: none;">
+                                        <img src="<%= product.Image_Path %>" class="w-100" style="height: 250px;" alt="...">
+                                        <% if (product.on_sale) { %>
+                                        <div class="sale-div position-absolute badge badge-success  p-2 m-2">Sale!</div>
+                                        <% } %>
+                                        <div class="card-body px-0">
+                                            <h6 class="card-title text"><%= product.product_name %></h6>
+                                            <div class="stars">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa-solid fa-star-half-stroke"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                            </div>
+                                            <% if (product.product_price_promotion !== '0.00') { %>
+                                                ฿<%= product.product_price_promotion %> 
+                                                <span style="color: grey; text-decoration: line-through; font-size: 14px;">
+                                                  ฿<%= product.product_price %>
+                                                </span>
+                                              <% } else { %>
+                                                ฿<%= product.product_price %>
+                                              <% } %>
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <form action="/add-to-cart" method="POST">
+                                        <input type="hidden" name="productId" value="<%= product.product_id %>">
+                                        <button class="btn btn-warning w-75" style="border-radius: 10px;" type="submit">Add to Cart</button>
+                                      </form>
+                                </div>
+                            <% }) %>
+                        </div>
+                        <div class="row">
+                            <!-- Pagination Links -->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-end">
+                                    <% if (currentPage > 1) { %>
+                                        <li class="page-item">
+                                            <a class="page-link" href="/search?q=<%= searchQuery %>&categories=<%= selectedCategories.join(',') %>&page=<%= currentPage - 1 %>">Previous</a>
+                                        </li>
+                                    <% } %>
+
+                                    <% for (let i = 1; i <= totalPages; i++) { %>
+                                        <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                            <a class="page-link" href="/search?q=<%= searchQuery %>&categories=<%= selectedCategories.join(',') %>&page=<%= i %>"><%= i %></a>
+                                        </li>
+                                    <% } %>
+
+                                    <% if (currentPage < totalPages) { %>
+                                        <li class="page-item">
+                                            <a class="page-link" href="/search?q=<%= searchQuery %>&categories=<%= selectedCategories.join(',') %>&page=<%= currentPage + 1 %>">Next</a>
+                                        </li>
+                                    <% } %>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- include('partials/footer'); %>
+    <script>
+        var boxCreated = false; // Flag to track whether the box is created or not
+
+        document.getElementById("filter").addEventListener("click", function () {
+            if (boxCreated) {
+                // Remove the box
+                var box = document.getElementById("dynamic-box");
+                if (box) {
+                    box.parentNode.removeChild(box);
+                    boxCreated = false; // Update the flag
+                }
+            } else {
+                // Create a new box
+                var newBox = document.createElement("div");
+                newBox.id = "dynamic-box";
+                newBox.style.width = '100%';
+                newBox.style.height = 'auto';
+                newBox.style.marginTop = '10px';
+                newBox.style.marginBottom = '15px';
+                newBox.className = "box";
+                newBox.innerHTML = `
+                <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Fiction
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Non-fiction
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Children's books
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Novels and comics
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Reference books
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Personal development
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Cookbooks
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Travel guides
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Poetry
+                        </label>
+                    </div>
+                </div>
+            </div>
+                `;
+
+                // Insert the new box after the search-small form
+                var searchSmallForm = document.getElementById("search-small");
+                searchSmallForm.parentNode.insertBefore(newBox, searchSmallForm.nextSibling);
+
+                boxCreated = true; // Update the flag
+            }
+        });
+    </script>
+    <script>
+        // Function to handle checkbox changes and form submission
+        function handleCheckboxChange() {
+            var checkedCategories = Array.from(document.querySelectorAll('.category-checkbox:checked'))
+                .map(checkbox => checkbox.value);
+    
+            var searchQuery = document.getElementById('searchBar').value;
+    
+            // Construct the URL with search query and selected categories
+            var url = '/search?q=' + searchQuery;
+            if (checkedCategories.length > 0) {
+                url += '&categories=' + checkedCategories.join(',');
+            }
+    
+            // Redirect to the constructed URL
+            window.location.href = url;
+        }
+    
+        // Add event listener to checkboxes
+        var checkboxes = document.querySelectorAll('.category-checkbox');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', handleCheckboxChange);
+        });
+    
+        // Function to check and keep checkboxes selected based on URL parameters
+        function checkAndSetCheckboxes() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var categoriesParam = urlParams.get('categories');
+    
+            if (categoriesParam) {
+                var categories = categoriesParam.split(',');
+                categories.forEach(function(categoryId) {
+                    var checkbox = document.getElementById('categoryCheckbox' + categoryId);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
+        }
+        // Call the function when the page loads
+        checkAndSetCheckboxes();
+    </script>
+</body>
+</html>

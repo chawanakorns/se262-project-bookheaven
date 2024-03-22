@@ -1,0 +1,485 @@
+.main {
+    margin: 5% 10% 5% 10%;
+    max-width: calc(100% - 20%);
+}
+h1{
+    font-weight: bolder;
+}
+p {
+    margin: 0; /* Resetting margin to override default */
+}
+.Title{
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+.bold {
+    font-weight: bold;
+}
+.path-mobile-item {
+    margin-bottom: 0px;
+    margin-left: 5px;
+}
+.Title-Head{
+    margin-bottom: 30px;
+}
+.payment-test {
+    margin-bottom: 0px;
+}
+
+/* main */
+.information-box{
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.box {
+    margin: 20px 5px 20px 5px;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+    width: 260px;
+    height: 100px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0
+}
+    
+.Item-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+.Item-details{
+    font-size: 16px;
+    word-wrap: break-word;
+}
+
+/*Profile*/
+.profile-box {
+    margin: 5px 5px 5px 5px;
+    background-color: #F5F5F5;
+    width: 100%;
+    height: 250px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-logo {
+    margin: 30px 30px 30px 80px;
+}
+
+.profile-Title{
+    margin-bottom: 20px;
+}
+
+.profile-Name {
+    margin-top: 40px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.edit-box {
+    margin-bottom: 30px;
+    margin-left: 50px;
+}
+.edit-item {
+    margin-right: 5px;
+}
+.profile-item {
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+.profile-box-small{
+    margin: 5px 5px 5px 5px;
+    background-color: #F5F5F5;
+    width: 80%;
+    height: 250px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    padding: 20px 20px 20px 30px;
+}
+.small-Title{
+    margin-bottom: 30px;
+}
+.edit-small-top {
+    margin-left: 10px;
+}
+.edit-small-down {
+    margin-bottom: 0px;
+    margin-right: 5px;
+}
+.Top-small{
+    margin-bottom: 30px;
+}
+
+/* Edit profile*/
+.EditPage-Title{
+    margin-bottom: 30px;
+}
+
+.input-box {
+    width: 100%;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #D9D9D9;
+    border-style: none;
+}
+
+.editPage-item {
+    margin-bottom: 20px;
+}
+
+.profile-icon-box {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+.edit-information-box {
+    padding-right: 30px;
+}
+
+.noti {
+    font-size: 12px;
+}
+
+.edit-profile-saveButton {
+    width: 60%;
+    margin-top: 50px;
+    
+}
+
+.vertical-line {
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
+    border-color: #343a40
+}
+
+.custom-btn {
+    background-color: #FFCA28;
+    font-weight: bold;
+    color: black;
+    border-style: none;
+}
+
+/* Address */
+.address-box{
+    margin: 20px 20px 20px 5px;
+    padding: 30px 10px 15px 30px;
+    background-color: #F5F5F5;
+    width: 300px;
+    height: 200px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.add-address-box {
+    margin: 20px 20px 20px 5px;
+    background-color: #F5F5F5;
+    width: 360px;
+    height: 200px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #000; /* Change #000 to your desired border color */
+    border-style: dashed;
+    border-radius: 0px;
+}
+
+.fucntion-address-box{
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.add-Address-Page {
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.checkbox-address-title {
+    padding-left: 30px;
+    margin-bottom: 10px;
+}
+
+/* Login */
+.main-Login-box {
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.login-box{
+    margin: 0px 20px 0px 5px;
+    padding: 10px 35px 10px 35px;
+    background-color: #F5F5F5;
+    width: 600px;
+    height: 80px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    border-bottom-style: solid;
+}
+
+
+.login-edit{
+    margin-top: 15px;
+}
+
+.login-edit-input {
+    margin-top: 10px;
+}
+
+.payment-input {
+    margin-top: 10px;
+}
+
+.login-edit-item {
+    display: flex;
+    position: relative;
+    left: 70px;
+}
+
+.edit-login-saveButton {
+    margin-top: 20px;
+}
+
+/* Payment */
+.payment-box-left{
+    width: 400px;
+    height: auto;
+    margin-right: 50px;
+}
+
+.payment-box {
+    margin: 0px 20px 0px 5px;
+    padding: 20px 20px 10px 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    border-left-style: solid;
+    width: 400px;
+    height: 140px;
+    border-width: 0px;
+}
+
+.selected-button {
+    border-width: 10px;
+    border-color: #FFCA28;
+    border-radius: 5px;
+    border-right-style: none;
+    border-top-style: none;
+    border-bottom-style: none;
+    background-color: #F5F5F5;
+}
+
+.payment-logo {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 18px;
+}
+
+.payment-popup{
+    margin: 0px 5px 0px 20px;
+    padding: 20px 20px 10px 30px;
+    background-color: #F5F5F5;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    width: 750px;
+    height: 250px;
+}
+
+.Gift-card-sec {
+    margin-top: 50px;
+}
+
+.card-col {
+    padding-top: 20px;
+    padding-left: 30px;
+    text-align: left;
+}
+
+.link-payment {
+    padding-top: 5%;
+}
+
+.link-payment-remove {
+    padding-left: 10%;
+}
+
+.payment-row {
+    margin-bottom: 100px;
+}
+
+.btn-outline-dark:hover {
+    background-color: #F5F5F5;
+    color: black;
+}
+
+.add-icon {
+    margin-left: 20px;
+    width: 140px;
+    height: 76px;
+    background-color: #D9D9D9;
+}
+
+.box-right {
+    margin-bottom: 50px;
+}
+
+.payment-description{
+    margin-bottom: 5px;
+}
+
+.add-payment-text {
+    margin-left: 30px;
+}
+@media only screen and (min-width: 769px) {
+    .small {
+        visibility: hidden;
+    }
+    
+    .path-mobile {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .box {
+        width: 100%;
+        height: 80px;
+        margin-bottom: 0px;
+    }
+    .profile-box {
+        background-color: white;
+    }
+
+    #Large-Profile {
+        display: none;
+    }
+
+    .large {
+        display: none;
+    }
+
+    .vertical-line{
+        border-right: none;
+    }
+
+    #logo-edit-profile{
+        order: -1;
+    }
+    
+    .edit-information-box {
+        padding-right: 12px;
+    }
+
+    .Title-Head h1{
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .path-PC {
+        display: none;
+    }
+
+    .address-box {
+        width: 80%;
+        padding-right: 20px;
+    }
+
+    .add-address-box {
+        width: 80%;
+    }
+
+    .Title-Head {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .add-Address-Page{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .main-Login-box {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .payment-box {
+        width: 100%;
+    }
+
+    .payment-box-left {
+        width: 100%;
+    }
+
+    .card-col {
+        padding-top: 0px;
+    }
+
+    .add-icon {
+        margin-left: 0px;
+        
+    }
+
+    .row#payment-mobile {
+        width: 100%;
+    }
+
+    .link-payment {
+        padding-top: 10px;
+    }
+
+    .payment-popup {
+        margin-top: 30px;
+        width: 100%;
+        height: 160px;
+    }
+
+    #showBnt {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .payment-popup#paypal-box{
+        height: 210px;
+    }
+
+    .paypal-icon {
+        padding-left: 30px;
+    }
+
+    .payment-popup#small-addPayment{
+        height: 500px;
+    }
+
+    #saveMobile {
+        margin-top: 30px;
+    }
+    
+    .GiftCard-mobile {
+        margin-left: 30px;
+    }
+
+    .redeem-mobile {
+        margin-top: 30px;
+    }
+
+    .payment-popup#Redeem-box{
+        height: 300px;
+    }
+
+    .payment-popup #paypal-box a {
+        width: 100%; /* Make the link fill the entire width of its container */
+    }
+
+    
+}

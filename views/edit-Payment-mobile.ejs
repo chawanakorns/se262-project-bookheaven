@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/account-main.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="https://kit.fontawesome.com/285cca5c8c.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<%- include('partials/navbar'); %>
+
+    <div class="container-fluid row main d-flex justify-content-center align-items-center">
+        <div>
+            <a href="payment-main.html" class="path-mobile">
+                <div class="d-flex profile-item">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="fa-solid fa-arrow-left fa-1sm"></i>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h6 class="path-mobile-item bold">Payment</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- main -->
+        <div class="Title-Head">
+            <h1>Payment</h1>
+        </div>
+        <!--About-->
+        <div class="d-flex flex-wrap justify-content-center align-items-center">
+            <div class="row payment-row">
+                <h3>Edit Payment method</h3>
+                <!-- Small -->
+                <div id="paymentInfo">
+                    <div class="payment-popup box-right row" id="small-addPayment">
+                        <div class="row">
+                            <div class="col-sm-7 ">
+                                <h4>Credit or Debit card</h4>
+                                <p>Edit credit or debit card</p>
+                            </div>
+                            <div class="col-sm-4 d-flex justify-content-center">
+                                <img src="assets/logo-mastercard.png" alt="" width="auto" height="40px"
+                                    class="payment-logo">
+                                <img src="assets/logo-visa.png" alt="" width="auto" height="40px" class="payment-logo">
+                            </div>
+                            <div class="col-sm-12" id="cardInput">
+                                <div>
+                                    <h6>Card number</h6>
+                                    <input type="text" class="form-control" id="cardNumber">
+                                </div>
+                                <div class="payment-input">
+                                    <h6>Name on Card</h6>
+                                    <input type="text" class="form-control" id="CardName">
+                                </div>
+                                <div class="payment-input" >
+                                    <div class="row">
+                                        <p>Expired Date</p>
+                                        <div class="col-sm-6">
+                                            <select class="form-select" aria-label="Default select example" id="EXPDate">
+                                                <option value="1">01</option>
+                                                <option value="2">02</option>
+                                                <option value="3">03</option>
+                                                <option value="4">04</option>
+                                                <option value="5">05</option>
+                                                <option value="6">06</option>
+                                                <option value="7">07</option>
+                                                <option value="8">08</option>
+                                                <option value="9">09</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                              </select>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <select class="form-select" aria-label="Default select example" id="EXPMonth">
+                                                <option value="1">24</option>
+                                                <option value="2">25</option>
+                                                <option value="3">26</option>
+                                                <option value="4">27</option>
+                                                <option value="5">28</option>
+                                                <option value="6">29</option>
+                                                <option value="7">30</option>
+                                                <option value="8">31</option>
+                                                <option value="9">32</option>
+                                                <option value="10">33</option>
+                                              </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="payment-input" id="last">
+                                    <h6>Security code (CVV/CVC)</h6>
+                                    <input type="text" class="form-control" id="cvvAndcvc">
+                                </div>
+                                <a class="d-grid gap-2 btn btn-primary custom-btn edit-login-saveButton" href="payment-main.html"
+                                    role="button" id="saveMobile">Save</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer'); %>
+</body>
+
+</html>

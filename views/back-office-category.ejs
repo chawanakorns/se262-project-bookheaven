@@ -1,0 +1,265 @@
+<%- include('partials/back-office-header', { pageTitle: 'Category Management Page', activePage: 'category' }) %>
+
+<body>
+  <div class="content">
+    <div class="label">
+      <h1>Categories</h1>
+    </div>
+    <div class="category-menu">
+      <div class="category-submenu">
+        <div class="category-button">
+          <form action="/back-office-category/add" method="POST">
+            <button class="edit" style="display: none; border: none; background-color: green; color: white;" id="add" type="submit">
+              <i class="fa-solid fa-plus"></i>&nbsp;Add
+            </button>
+          </form>
+          <button class="edit" style="display: none; border: none; background-color: red; color: white;" id="delete" onclick="deleteSelectedRows()">
+            <i class="fa-solid fa-minus"></i>&nbsp;Delete
+          </button>
+          <button class="edit" onclick="toggleEditButtons(this)">
+            <i class="fa-solid fa-pen-to-square"></i>
+            &nbsp;
+            <a>Edit</a>
+          </button>
+        </div>
+        <div class="page-select-above">
+          <button class="edit" onclick="previousPage()"><i class="fa-solid fa-arrow-left"></i></button>
+          &nbsp;
+          <input class="page-number" type="number" min="1" value="<%= currentPage %>" onchange="goToPage(this.value)"></input>
+          &nbsp;
+          <button class="edit" onclick="nextPage()"><i class="fa-solid fa-arrow-right"></i></button>
+          <div class="page-label">Page <%= currentPage %> out of <%= totalPages %></div>
+        </div>
+      </div>
+      &nbsp;
+      &nbsp;
+      <form class="search" action="/back-office-category" method="GET">
+        <input style="padding: 10px;" class="search-box" name="search" placeholder="Search category name" value="<%= typeof search !== 'undefined' ? search : '' %>">
+        <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass" style="color: black;"></i></button>
+      </form>
+    </div>
+    <div id="popup" class="popup">
+      <div class="popup-content">
+          <span class="close" onclick="closePopup()">&times;</span>
+          <h2 id="popup-title">Products in Category</h2>
+          <hr>
+          <ul id="popup-list"></ul>
+      </div>
+    </div>
+    <form id="editForm" action="/back-office-category/update" method="POST">
+      <table class="category-table">
+        <thead>
+          <tr class="head-row">
+            <td id="checkbox-header" style="display: none;"><input type="checkbox" onchange="toggleAllCheckboxes(this)"></td>
+            <td><b>Category ID</b></td>
+            <td><b>Category Name</b></td>
+            <td><b>Current Stock</b></td>
+            <td><b>View lists</b></td>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <% if (data.length === 0) { %>
+            <tr>
+              <td colspan="5">No category available.</td>
+            </tr>
+          <% } else { %>
+            <% data.forEach(entry => { %>
+              <tr>
+                <!-- Render data for each row -->
+                <td class="checkbox-column" style="display: none;">
+                  <input type="checkbox" name="selectedCategories" value="<%= entry.category_id %>">
+                </td>
+                <td class="category-id-column">
+                  <%= entry.category_id %>
+                  <!-- Add hidden input for category_id -->
+                  <input type="hidden" name="category_id[]" value="<%= entry.category_id %>">
+                </td>
+                <td class="category-name-column">
+                  <span class="category-name-label"><%= entry.category_name %></span>
+                  <input class="edit-input" type="text" name="category_name[]" value="<%= entry.category_name %>" style="display:none;">
+                </td>
+                <td class="number-of-items-column">
+                  <%= entry.number_of_items %>
+                </td>
+                <td>
+                  <button onclick="openPopup('<%= entry.category_id %>', '<%= entry.category_name %>', event)">
+                      <i class="fa-solid fa-eye" style="color: black;"></i>
+                  </button>
+                </td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </form>
+    <div class="page-select">
+      <button class="edit" onclick="previousPage()"><i class="fa-solid fa-arrow-left"></i></button>
+      &nbsp;
+      <input class="page-number" type="number" min="1" value="<%= currentPage %>" onchange="goToPage(this.value)"></input>
+      &nbsp;
+      <button class="edit" onclick="nextPage()"><i class="fa-solid fa-arrow-right"></i></button>
+      <div class="page-label">Page <%= currentPage %> out of <%= totalPages %></div>
+    </div>
+  </div>
+  <script>
+    // Edit toggle button script
+  function toggleEditButtons(button) {
+    var addButton = document.getElementById('add');
+    var deleteButton = document.getElementById('delete');
+    var checkboxHeaders = document.querySelectorAll('#checkbox-header, .checkbox-column');
+    var editInputs = document.querySelectorAll('.edit-input');
+    var editLabels = document.querySelectorAll('.category-name-label');
+
+    if (addButton.style.display === 'none') {
+      // Entering edit mode
+      addButton.style.display = 'inline-block';
+      deleteButton.style.display = 'inline-block';
+      button.innerHTML = '<i class="fa-solid fa-times"></i> Cancel';
+      button.style.border = 'none';
+      button.style.backgroundColor = 'orange';
+      button.style.color = 'white';
+      checkboxHeaders.forEach(function (column) {
+        column.style.display = 'table-cell';
+      });
+      editLabels.forEach(function (label) {
+        label.style.display = 'none';
+      });
+
+      // Show input fields in edit mode
+      editInputs.forEach(function (input) {
+        input.style.display = 'inline-block';
+      });
+
+    } else {
+      // Exiting edit mode
+      addButton.style.display = 'none';
+      deleteButton.style.display = 'none';
+      button.style.border = '';
+      button.style.backgroundColor = '';
+      button.style.color = '';
+      button.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;&nbsp;<a>Edit</a>';
+      checkboxHeaders.forEach(function (column) {
+        column.style.display = 'none';
+      });
+      editLabels.forEach(function (label) {
+        label.style.display = 'inline-block';
+      });
+
+      // Hide input fields
+      editInputs.forEach(function (input) {
+        input.style.display = 'none';
+      });
+
+      // Update values and submit form to update database
+      var editForm = document.getElementById('editForm');
+      editForm.submit();
+    }
+  }
+
+    function toggleAllCheckboxes(checkbox) {
+      var checkboxes = document.querySelectorAll('.category-table tbody tr .checkbox-column input');
+      checkboxes.forEach(function (cb) {
+        cb.checked = checkbox.checked;
+      });
+    }
+
+    function nextPage() {
+      var currentPage = parseInt('<%= currentPage %>');
+      var totalPages = parseInt('<%= totalPages %>');
+      if (currentPage < totalPages) {
+        window.location.href = '/category?page=' + (currentPage + 1);
+      }
+    }
+
+    function previousPage() {
+      var currentPage = parseInt('<%= currentPage %>');
+      if (currentPage > 1) {
+        window.location.href = '/category?page=' + (currentPage - 1);
+      }
+    }
+
+    function goToPage(pageNumber) {
+      var totalPages = parseInt('<%= totalPages %>');
+      // Parse the input to ensure it's a valid number
+      pageNumber = parseInt(pageNumber);
+
+      // Check if the input is a valid number and within range
+      if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= totalPages) {
+        window.location.href = '/category?page=' + pageNumber;
+      } else {
+        // Provide feedback to the user if the input is invalid
+        alert('Please enter a valid page number between 1 and ' + totalPages);
+      }
+    }
+
+    function deleteSelectedRows() {
+      const selectedCheckboxes = document.querySelectorAll('.checkbox-column input:checked');
+      const selectedCategories = Array.from(selectedCheckboxes).map(cb => cb.value);
+
+      if (selectedCategories.length === 0) {
+        alert('Please select at least one row to delete.');
+        return;
+      }
+
+      const deleteForm = document.createElement('form');
+      deleteForm.setAttribute('action', '/back-office-category/delete');
+      deleteForm.setAttribute('method', 'POST');
+      deleteForm.style.display = 'none'; // Hide the form
+
+      // Create and append hidden inputs for each selected category ID
+      selectedCategories.forEach(categoryId => {
+        const deleteInput = document.createElement('input');
+        deleteInput.setAttribute('type', 'hidden');
+        deleteInput.setAttribute('name', 'selectedCategories');
+        deleteInput.setAttribute('value', categoryId);
+        deleteForm.appendChild(deleteInput);
+      });
+
+      document.body.appendChild(deleteForm);
+
+      // Submit the form
+      deleteForm.submit();
+    }
+  </script>
+  <script>
+    // Function to open the popup and fetch products
+    function openPopup(categoryId, categoryName, event) {
+        event.preventDefault();
+
+        // Get the popup element
+        var popup = document.getElementById("popup");
+
+        // Get the title element
+        var title = document.getElementById("popup-title");
+        title.innerText = "Category: " + categoryName;
+
+        // Get the list element
+        var list = document.getElementById("popup-list");
+        list.innerHTML = "";
+
+        // Make an AJAX request to fetch products for the category
+        fetch(`/back-office-category/products/${categoryId}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(product => {
+                    var li = document.createElement("li");
+                    li.textContent = product.product_name;
+                    list.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching products:", error);
+                alert("Error fetching products. Please try again.");
+            });
+
+        // Show the popup
+        popup.style.display = "block";
+    }
+
+    // Function to close the popup
+    function closePopup() {
+        var popup = document.getElementById("popup");
+        popup.style.display = "none";
+    }
+  </script>
+</body>

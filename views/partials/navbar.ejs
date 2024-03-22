@@ -1,0 +1,86 @@
+  <body>
+    <nav class="navbar bg-body-tertiary" id="top-nav">
+      <div class="container-fluid">
+        <a class="navbar-brand ms-auto" href="/cart">
+          <i
+            class="fa-solid fa-cart-shopping fa-2xs"
+            style="color: #000000"
+          ></i>
+        </a>
+        <a class="navbar-brand" href="/account">
+          <i class="fa-solid fa-user fa-2xs" style="color: #000000"></i>
+        </a>
+      </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg" id="secondNav">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler bg-white"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+          <img src="assets/logo.png" alt="" id="logo" class="" />
+        </a>
+        <a class="navbar-brand ms-auto " href="/cart">
+          <i
+            class="fa-solid fa-cart-shopping fa-xs"
+            id="icon"
+            style="color: #ffffff"
+          ></i>
+        </a>
+        <a class="navbar-brand" href="/account">
+          <i
+            class="fa-solid fa-user fa-xs "
+            id="icon"
+            style="color: #ffffff"
+          ></i>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Category
+              </a>
+              <ul class="dropdown-menu animate slideIn">
+                <li><a class="dropdown-item" href="search?q=&categories=1">Fiction</a></li>
+                <li><a class="dropdown-item" href="search?q=&categories=2">Non-fiction</a></li>
+                <li><a class="dropdown-item" href="search?q=&categories=3">Children's book</a></li>
+                <li><a class="dropdown-item" href="search?q=&categories=4">Novels and comics</a></li>
+                <li><a class="dropdown-item" href="search?q=&categories=5">Reference books</a></li>
+                <li><a class="dropdown-item" href="search?q=&categories=6">Personal development</a></li>
+                <li><a class="dropdown-item" href="search?q=&categories=7">Cookbooks</a></li>
+                <li><a class="dropdown-item" href="search?q=&categories=8">Travel guides</a></li>
+                <li><a class="dropdown-item" href="search?q=&categories=9">Poetry</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact">Contact us</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search" action="/search" method="POST">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              id="searchBar"
+              name="searchBar"
+            />
+            <input type="submit" style="position: absolute; left: -9999px"/>
+          </form>
+        </div>
+      </div>
+    </nav>

@@ -1,0 +1,81 @@
+.main {
+    margin: 5% 7% 5% 7%;
+    max-width: calc(100% - 14%);
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.box {
+    background-color: #D9D9D9;
+    width: 350px;
+    height: 250px;
+    padding: 20px 40px 20px 40px;
+    margin-top: 30px;
+    margin-right: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex; /* Add this line */
+    flex-direction: column; /* Add this line */
+    justify-content: flex-end; /* Add this line */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 10); /* Add shadow here */
+}
+
+
+.box:nth-child(1) {
+    background-image: url('/assets/categories/fiction.png');
+}
+
+.box:nth-child(2) {
+    background-image: url('/assets/categories/non-fiction.png');
+}
+
+.box:nth-child(3) {
+    background-image: url('/assets/categories/child.png');
+}
+
+.box:nth-child(4) {
+    background-image: url('/assets/categories/novel.png');
+}
+
+.box:nth-child(5) {
+    background-image: url('/assets/categories/refbook.png');
+}
+
+.box:nth-child(6) {
+    background-image: url('/assets/categories/personalDev.png');
+}
+
+.box:nth-child(7) {
+    background-image: url('/assets/categories/cook.png');
+}
+
+.box:nth-child(8) {
+    background-image: url('/assets/categories/travel.png');
+}
+
+.box:nth-child(9) {
+    background-image: url('/assets/categories/poetry.png');
+}
+
+
+
+@media only screen and (max-width: 768px) {
+    .large {
+        display: none;
+    }
+
+    .box {
+        margin-top: 30px;
+        margin-right: 0px;
+        width: 80%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .small {
+        display: none;
+    }
+}

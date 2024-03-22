@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/cart.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="https://kit.fontawesome.com/285cca5c8c.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <%- include('partials/navbar'); %>
+
+        <div class="container-fluid row main">
+            <!-- main -->
+            <!-- Function -->
+            <div class="row">
+                <div class="col-lg-8 box-left">
+                    <div class="line d-flex align-items-center">
+                        <div class="large">
+                            <i class="fa-solid fa-5x fa-cart-shopping"></i>
+                        </div>
+                        <h1 class="title">Cart</h1>
+                    </div>
+                    <div class="book-item">
+                        <table class="custom-table">
+                            <% cartItems.forEach((item , index)=> { %>
+                                <div class="item-frame">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="6"><%- item.product_name %></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="item-frame">
+                                        <tr>
+                                            <td>
+                                                <img src="<%= item.Image_Path %>" alt="" width="60px" />
+                                            </td>
+                                            <td class="product-id large">
+                                                <p>BOOKCODE : <%- item.product_id %></p>
+                                                <p>In Stock</p>
+                                            </td>
+                                            <td class="product-price">
+                                                <p>Price:</p>
+                                                <% if (item.product_price_promotion !== '0.00') { %>
+                                                    <p>฿<%= item.product_price_promotion %></p>
+                                                <% } else { %>
+                                                    <p>฿<%= item.product_price %> </p>
+                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <p>Quantity:</p>
+                                                <div class="input-group quantity-btn">
+                                                    <div class="input-group-prepend custom-input-group">
+                                                        <button class="btn btn-outline-secondary" type="button"
+                                                            onclick="decrement(this)">
+                                                            -
+                                                        </button>
+                                                    </div>
+                                                    <input type="text" class="form-control text-center quantity-mark"
+                                                        placeholder="Quantity" aria-label="Quantity"
+                                                        aria-describedby="quantity-minus quantity-plus" value="1"
+                                                        oninput="updateTotal(this)" />
+                                                    <div class="input-group-append custom-input-group">
+                                                        <button class="btn btn-outline-secondary" type="button"
+                                                            onclick="increment(this)">
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p>Total:</p>
+                                                <% if (item.product_price_promotion !== '0.00') { %>
+                                                    <p class="sum">฿<%= item.product_price_promotion %></p>
+                                                <% } else { %>
+                                                    <p class="sum">฿<%= item.product_price %> </p>
+                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <form action="/remove-from-cart" method="POST">
+                                                    <input type="hidden" name="productId"
+                                                        value="<%= item.product_id %>" />
+                                                    <button type="submit" class="btn btn-link">
+                                                        <i class="fa-solid fa-xmark text-dark"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                                <% }); %>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="box-right">
+                        <h5>Enter Promotion code</h5>
+                        <div class="line">
+                            <div class="row">
+                                <div class="col-lg-8 col-sm-9">
+                                    <input type="text" class="input-box" />
+                                </div>
+                                <div class="col-lg-4 col-sm-3">
+                                    <button class="btn custom-btn" type="button" id="apply-btn">
+                                        Apply
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 price-detail">
+                            <div class="d-flex justify-content-between">
+                                <p>Subtotal</p>
+                                <p class="align-self-end" id="subtotal">฿0.00</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p>Discount</p>
+                                <p class="align-self-end" id="discount">-</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p>Promo/Gift Card Certificate</p>
+                                <p class="align-self-end" id="promo">-</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 price-detail">
+                            <div class="d-flex justify-content-between">
+                                <p>Estimate Total (THB)</p>
+                                <p class="align-self-end sum" id="estTotal">฿0.00</p>
+                            </div>
+                        </div>
+                        <button class="btn custom-btn checkout-btn btn-block" type="button" onclick="checkout()">
+                            Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('partials/footer'); %>
+            <script>
+                // Function to sum the total price of products in the cart, including discounts and promotions
+                function sumTotalPrice() {
+                    let subtotal = 0;
+                    // Iterate through each item in the cart
+                    document.querySelectorAll('.item-frame').forEach(itemFrame => {
+                        // Check if product price and quantity elements exist
+                        let productPriceElement = itemFrame.querySelector('.product-price p:last-of-type');
+                        let quantityElement = itemFrame.querySelector('.quantity-mark');
+                        if (productPriceElement && quantityElement) {
+                            // Get the price and quantity of the item
+                            let price = parseFloat(productPriceElement.textContent.trim().replace('฿', '').replace(/,/g, ''));
+                            let quantity = parseInt(quantityElement.value);
+                            // Update subtotal by adding the price multiplied by quantity
+                            subtotal += price * quantity;
+                        }
+                    });
+
+                    // Calculate total after applying discounts and promotions (currently set to subtotal)
+                    let total = subtotal;
+
+
+                    // Calculate total after applying discounts and promotions
+                    // Let's assume we have an example discount and promotion, you should adjust these values based on your logic
+
+                    // Example discount (adjust this according to your logic)
+                    // let discount = 50; 
+
+                    // Example promotion (adjust this according to your logic)
+                    // let promotion = 20; 
+
+                    // Calculate total by subtracting discount from subtotal and adding promotion
+                    // let total = subtotal - discount + promotion;
+
+                    // Update subtotal element with formatted value
+                    document.getElementById('subtotal').textContent = '฿' + subtotal.toFixed(2).toLocaleString('en-US');
+
+                    // Update estTotal element with formatted total
+                    document.getElementById('estTotal').textContent = '฿' + total.toFixed(2).toLocaleString('en-US');
+                }
+
+                // Call sumTotalPrice function when the page is fully loaded
+                window.addEventListener('load', function () {
+                    sumTotalPrice();
+                });
+
+                // Function to update total for a single row (already defined in your code)
+                function updateTotal(input) {
+                    let quantity = parseInt(input.value);
+                    let price = parseFloat(input.closest('.item-frame').querySelector('.product-price p:last-of-type').textContent.trim().replace('฿', '').replace(/,/g, ''));
+                    let total = quantity * price;
+                    let formattedTotal = total.toFixed(2);
+                    input.closest('.item-frame').querySelector('.sum').textContent = '฿' + formattedTotal.toLocaleString('en-US');
+                    sumTotalPrice(); // Call sumTotalPrice to update total price
+                }
+
+                // Existing increment and decrement functions remain the same (already defined in your code)
+                function decrement(button) {
+                    let quantityInput = button.parentElement.nextElementSibling;
+                    let currentValue = parseInt(quantityInput.value);
+                    if (currentValue > 1) {
+                        quantityInput.value = currentValue - 1;
+                        updateTotal(quantityInput);
+                    }
+                }
+
+                function increment(button) {
+                    let quantityInput = button.parentElement.previousElementSibling;
+                    let currentValue = parseInt(quantityInput.value);
+                    quantityInput.value = currentValue + 1;
+                    updateTotal(quantityInput);
+                }
+            </script>
+
+
+
+            <script>
+                // Function to remove item from cart
+                function removeFromCart(productId) {
+                    // Send a POST request to the server to remove the item
+                    fetch("/remove-from-cart", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ productId }),
+                    })
+                        .then((response) => {
+                            if (response.ok) {
+                                // Reload the page to update the cart
+                                location.reload();
+                            } else {
+                                console.error(
+                                    "Error removing item from cart:",
+                                    response.statusText
+                                );
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error removing item from cart:", error.message);
+                        });
+                }
+            </script>
+            <script>
+                function checkout() {
+                    // Initialize an array to store items for checkout
+                    let itemsForCheckout = [];
+            
+                    // Iterate through each item in the cart
+                    document.querySelectorAll('.item-frame').forEach(itemFrame => {
+                        // Get product ID and quantity elements
+                        let productIdElement = itemFrame.querySelector('.product-id p:first-of-type');
+                        let quantityElement = itemFrame.querySelector('.quantity-mark');
+            
+                        if (productIdElement && quantityElement) {
+                            // Get product ID and quantity values
+                            let productId = productIdElement.textContent.trim().split(':')[1].trim();
+                            let quantity = parseInt(quantityElement.value);
+            
+                            // Add item to the array if productId and quantity are valid
+                            if (productId && !isNaN(quantity) && quantity > 0) {
+                                itemsForCheckout.push({ productId, quantity });
+                            }
+                        }
+                    });
+            
+                    console.log('Items for checkout:', itemsForCheckout);
+            
+                    if (itemsForCheckout.length === 0) {
+                        // No items for checkout
+                        alert('Your cart is empty!');
+                        return;
+                    }
+            
+                    // Send itemsForCheckout to the server for checkout
+                    fetch('/cart/checkout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ items: itemsForCheckout }), // Send items array within an object
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // If checkout successful, do something like redirect to a thank you page
+                            itemsForCheckout = [];
+                            console.log('Checkout successful. Cart emptied.');
+                            window.location.href = '/thank-you';
+                        } else {
+                            console.error('Error during checkout:', response.statusText);
+                            alert('Error during checkout. Please try again later.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error during checkout:', error);
+                        alert('Error during checkout. Please try again later.');
+                    });
+                }
+            </script>
+            
+</body>
+
+</html>

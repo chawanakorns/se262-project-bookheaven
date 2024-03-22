@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/account-main.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="https://kit.fontawesome.com/285cca5c8c.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<%- include('partials/navbar'); %>
+
+    <div class="container-fluid row main d-flex justify-content-center align-items-center">
+        <div>
+            <nav aria-label="breadcrumb" class="path-PC">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">
+                        <a href="account-main.html">Account</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="address.html">Address</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Address</li>
+                </ol>
+            </nav>
+
+            <a href="address.html" class="path-mobile">
+                <div class="d-flex profile-item">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="fa-solid fa-arrow-left fa-1sm"></i>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h6 class="path-mobile-item bold">Address</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- main -->
+        <div class="Title-Head">
+            <h1>Add Address</h1>
+        </div>
+        <!--About-->
+        <div class="row d-flex add-Address-Page">
+            <div class="col-lg col-md-9 edit-information-box ">
+                <div class="row">
+                    <div class="col-lg-6 editPage-item">
+                        <div class="form-floating">
+                            <input class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 editPage-item">
+                        <div class="form-floating">
+                            <input class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Last Name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="editPage-item">
+                    <div class="form-floating">
+                        <input class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Address</label>
+                    </div>
+                </div>
+                <div class="editPage-item">
+                    <div class="form-floating">
+                        <input class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Apartment, suite, etc. (optional)</label>
+                    </div>
+                </div>
+                <div class="editPage-item">
+                    <div class="form-floating">
+                        <input class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">City</label>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6 editPage-item">
+                        <div class="form-floating">
+                            <input class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Zip/Postal Code</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 editPage-item">
+                        <div class="form-floating">
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <label for="floatingSelect">Province</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="editPage-item">
+                    <div class="form-floating">
+                        <input class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Phone</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="add-Address-Page">
+            <div class="form-check edit-profile-saveButton">
+                <div class="checkbox-address-title">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Make this to default
+                    </label>
+                </div>
+            </div>
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary custom-btn" type="button">Save</button>
+            </div>
+        </div>
+
+    </div>
+    <footer class="w-100 py-4 flex-shrink-0">
+        <div class="container py-4">
+            <div class="row gy-4 gx-5">
+                <div class="col-lg-4 col-md-6" id="footer-mobile">
+                    <h2 class="h2 text-black">Book Heaven</h2>
+                    <p class="text-muted">Book Heaven is your premier online destination for all things book-related. We offer a vast selection of books across various genres, including fiction, non-fiction, romance, mystery, science fiction, fantasy, and more. Whether you're looking for bestsellers, classics, or hidden gems, you'll find them all at Book Heaven.
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-6" id = "footer-mobile">
+                    <h5 class="text-blak mb-3">Quick links</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li><a href="#" class="link-dark">Home</a></li>
+                        <li><a href="#" class="link-dark">Category</a></li>
+                        <li><a href="#" class="link-dark">Promotion</a></li>
+                        <li><a href="#" class="link-dark">Contact us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6" id = "footer-mobile">
+                    <h5 class="text-black mb-3">Payment</h5>
+                    <div class="row gx-1 gy-3">
+                        <div class="col-6">
+                            <img src="assets/logo-paypal.png" alt="" style="width: 52px; height: auto;">
+                        </div>
+                        <div class="col-6">
+                            <img src="assets/logo-mastercard.png" alt="" style="width: 52px; height: auto;">
+                        </div>
+                        <div class="col-6">
+                            <img src="assets/logo-visa.png" alt="" style="width: 52px; height: auto;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 " id="foot-contract-mb" >
+                    <h5 class="text-black mb-3" >Contact us</h5>
+                    <div class="row gx-4 gy-2" >
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h6>Phone</h6>
+                            <p class="text-muted">+1 (800) 123-4567</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h6>Email</h6>
+                            <p class="text-muted">sup@bookheaven.com</p>
+                        </div>
+                        <div class="col-md-6 col-sm" id ="foot-contract-mb-address">
+                            <h6 >Address</h6>
+                            <p class="text-muted ">Bright Solutions Tech Support 123 Main Street, Suite 100 Anytown, USA 12345</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <p class="small text-muted mb-0">&copy; Book Heaven Co.,Ltd. All right Reserved. <a class="text-primary" href="#">Bookheaven.com</a></p>
+                </div>
+            </div>
+        </div>
+
+    <%- include('partials/footer'); %>
+</body>
+
+</html>

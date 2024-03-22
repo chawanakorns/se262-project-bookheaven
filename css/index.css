@@ -1,0 +1,144 @@
+#secondNav {
+    background-color: #132C6B;
+    padding-left: 64px;
+    padding-right: 64px;
+}
+
+#logo {
+    width: auto;
+    height: 60px;
+    margin-left: 20px;
+}
+
+.navbar-toggler-icon {
+    color: white;
+}
+
+.navbar-collapse.in {
+    max-height: 100%;
+}
+
+body nav:nth-child(1) {
+    padding: 0px 0px 0px 0px;
+}
+
+@media only screen and (min-width: 769px) {
+    #icon {
+        display: none;
+    }
+    #searchBar {
+
+        min-width: 250px;
+
+    }
+    .animate {
+        animation-duration: 0.3s;
+        -webkit-animation-duration: 0.3s;
+        animation-fill-mode: both;
+        -webkit-animation-fill-mode: both;
+      }
+
+}
+
+@media only screen and (max-width: 768px) {
+    #top-nav {
+        display: none;
+        transition: 2s;
+    }
+
+    #secondNav {
+        background-color: #132C6B;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    #logo {
+        max-width: 200px;
+        height: auto;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes slideIn {
+    0% {
+        -webkit-transform: transform;
+        -webkit-opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        -webkit-opacity: 1;
+    }
+
+    0% {
+        -webkit-transform: translateY(1rem);
+        -webkit-opacity: 0;
+    }
+}
+
+.slideIn {
+  -webkit-animation-name: slideIn;
+  animation-name: slideIn;
+}
+
+.dropdown-menu {
+    background-color: #132C6B;
+}
+
+.dropdown-menu .dropdown-item {
+    color: white;
+}
+.dropdown-menu .dropdown-item:hover {
+    color: black;
+}
+
+.nav-item a {
+    color: white;
+}
+
+.nav-item a:hover {
+    color: grey;
+}
+
+
+/* FOOTER CSS */
+footer {
+    background-color: #E9ECF0;
+}
+
+.payment-logo li {
+    width: 64px;
+}
+
+@media only screen and (max-width: 769px) {
+    #footer-mobile {
+        display: none;
+    }
+
+    #foot-contract-mb {
+        text-align: center;
+    }
+    #foot-contract-mb-address{
+        align-items: center;
+    }
+}
+
+footer {
+    font-size: 14px;
+}
